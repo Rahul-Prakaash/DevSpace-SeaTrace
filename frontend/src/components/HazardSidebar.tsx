@@ -1,0 +1,117 @@
+import { HazardReport, hazardReports } from '@/lib/mockData';
+import { ScrollArea } from './ui/scroll-area';
+import { Badge } from './ui/badge';
+import { Separator } from './ui/separator';
+import { formatDate, getSeverityColor } from '@/lib/utils';
+import { Waves, Wind, TrendingUp, Mountain, AlertTriangle, CloudLightning } from 'lucide-react';
+
+interface HazardSidebarProps {
+    selectedReport: HazardReport | null;
+    onSelectReport: (report: HazardReport) => void;
+    selectedType: string | null;
+    onSelectType: (type: string | null) => void;
+}
+
+const hazardIcons: Record<string, any> = {
+    tsunami: Waves,
+    storm_surge: Wind,
+    high_tide: TrendingUp,
+    erosion: Mountain,
+    rip_current: AlertTriangle,
+    cyclone: CloudLightning,
+};
+
+const HazardSidebar = ({
+    selectedReport,
+    onSelectReport,
+    selectedType,
+    onSelectType,
+}: HazardSidebarProps) => {
+    const filteredReports = selectedType
+        ? hazardReports.filter((r) => r.type === selectedType)
+        : hazardReports;
+
+    return (
+        <div className="flex flex-col h-full">
+            <div className="p-4 border-b border-border/50">
+                <h2 className="text-lg font-semibold mb-3">Hazard Reports</h2>
+                <div className="flex flex-wrap gap-2">
+                    <Badge
+                        variant={selectedType === null ? 'default' : 'outline'}
+                        className="cursor-pointer"
+                        onClick={() => onSelectType(null)}
+                    >
+                        All
+                    </Badge>
+                    {Object.keys(hazardIcons).map((type) => (
+                        <Badge
+                            key={type}
+                            variant={selectedType === type ? 'default' : 'outline'}
+                            className="cursor-pointer capitalize"
+                            onClick={() => onSelectType(type)}
+                        >
+                            {type.replace('_', ' ')}
+                        </Badge>
+                    ))}
+                </div>
+            </div>
+
+            <ScrollArea className="flex-1">
+                <div className="p-4 space-y-3">
+                    {filteredReports.map((report) => {
+                        const Icon = hazardIcons[report.type] || AlertTriangle;
+                        const isSelected = selectedReport?.id === report.id;
+
+                        return (
+                            <div
+                                key={report.id}
+                                onClick={() => onSelectReport(report)}
+                                className={`p-3 rounded-lg border cursor-pointer transition-all hover:border-primary/50 ${isSelected
+                                    ? 'bg-primary/10 border-primary'
+                                    : 'bg-card/50 border-border/30'
+                                    }`}
+                            >
+                                <div className="flex items-start gap-3">
+                                    <div
+                                        className={`p-2 rounded-lg ${report.severity === 'critical'
+                                            ? 'bg-[hsl(var(--hazard-critical))]/10'
+                                            : report.severity === 'high'
+                                                ? 'bg-destructive/10'
+                                                : report.severity === 'medium'
+                                                    ? 'bg-warning/10'
+                                                    : 'bg-success/10'
+                                            }`}
+                                    >
+                                        <Icon className={`w-4 h-4 ${getSeverityColor(report.severity)}`} />
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex items-start justify-between gap-2 mb-1">
+                                            <h3 className="text-sm font-semibold line-clamp-1">
+                                                {report.title}
+                                            </h3>
+                                            {report.verified && (
+                                                <Badge variant="success" className="text-[10px] px-1.5 py-0">
+                                                    ✓
+                                                </Badge>
+                                            )}
+                                        </div>
+                                        <p className="text-xs text-muted-foreground line-clamp-2 mb-2">
+                                            {report.description}
+                                        </p>
+                                        <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
+                                            <span>{formatDate(report.timestamp)}</span>
+                                            <span>•</span>
+                                            <span>{report.upvotes} upvotes</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            </ScrollArea>
+        </div>
+    );
+};
+
+export default HazardSidebar;

@@ -1,0 +1,26 @@
+{
+    "name": "seatrace-backend",
+    "version": "1.0.0",
+    "description": "SeaTrace backend API with MongoDB and ML integration",
+    "main": "dist/index.js",
+    "type": "module",
+    "scripts": {
+        "dev": "tsx watch src/index.ts",
+        "build": "tsc",
+        "start": "node dist/index.js",
+        "seed": "tsx src/scripts/seed.ts"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "express": "^4.21.2",
+        "mongoose": "^8.9.3"
+    },
+    "devDependencies": {
+        "@types/cors": "^2.8.17",
+        "@types/express": "^5.0.0",
+        "@types/node": "^22.16.5",
+        "tsx": "^4.19.2",
+        "typescript": "^5.8.3"
+    }
+}

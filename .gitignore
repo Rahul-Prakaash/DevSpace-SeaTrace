@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Caches
+.cache/
+coverage/
+.nyc_output/
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+
+# ML model artifacts (large files)
+ml/models/*.pkl
+ml/models/*.joblib
+ml/models/*.h5
+ml/models/*.pt
+ml/data/*.csv
+ml/data/*.json
+!ml/data/.gitkeep
+
+# Logs
+*.log
+
+# Gemini agent metadata
+.gemini/
+.agent/
