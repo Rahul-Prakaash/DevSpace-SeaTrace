@@ -73,7 +73,8 @@
     font-family: 'Inter', system-ui, sans-serif;
   }
 
-  code, .font-mono {
+  code,
+  .font-mono {
     font-family: 'JetBrains Mono', monospace;
   }
 }
@@ -103,13 +104,29 @@
   }
 
   @keyframes hazardPulse {
-    0%, 100% { opacity: 0.6; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.05); }
+
+    0%,
+    100% {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
   }
 
   @keyframes waveFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-6px);
+    }
   }
 
   .wave-float {
@@ -117,8 +134,13 @@
   }
 
   @keyframes scanline {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(100%);
+    }
   }
 
   .scanline {
@@ -130,6 +152,10 @@
 .leaflet-container {
   background: hsl(220 35% 6%) !important;
   font-family: 'Inter', sans-serif !important;
+}
+
+.leaflet-top {
+  top: 80px !important;
 }
 
 .leaflet-control-zoom a {

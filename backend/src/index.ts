@@ -2,10 +2,13 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { connectDatabase } from './config/database.js';
+import './config/authDatabase.js'; // Initialize auth DB connection
 import hazardsRouter from './routes/hazards.js';
 import alertsRouter from './routes/alerts.js';
 import reportsRouter from './routes/reports.js';
 import predictionsRouter from './routes/predictions.js';
+import socialRouter from './routes/social.js';
+import authRouter from './routes/auth.js';
 
 dotenv.config();
 
@@ -26,6 +29,8 @@ app.use('/api/hazards', hazardsRouter);
 app.use('/api/alerts', alertsRouter);
 app.use('/api/reports', reportsRouter);
 app.use('/api/predictions', predictionsRouter);
+app.use('/api', socialRouter);
+app.use('/api/auth', authRouter);
 
 // 404 handler
 app.use((req, res) => {

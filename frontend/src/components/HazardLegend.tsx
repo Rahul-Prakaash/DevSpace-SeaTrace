@@ -19,13 +19,14 @@ const HazardLegend = ({ visibleTypes, onToggleType }: HazardLegendProps) => {
         { type: 'high_tide', label: 'High Tide' },
         { type: 'erosion', label: 'Erosion' },
         { type: 'rip_current', label: 'Rip Current' },
+        { type: 'coastal_flood', label: 'Coastal Flood' },
     ];
 
     return (
         <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="absolute top-20 left-4 z-[800] w-52"
+            className="absolute top-20 left-14 z-[800] w-52"
         >
             <div className="glass-panel rounded-lg shadow-lg overflow-hidden border border-border/30 backdrop-blur-xl bg-background/40">
                 <div
@@ -79,14 +80,18 @@ const HazardLegend = ({ visibleTypes, onToggleType }: HazardLegendProps) => {
                                 })}
                             </div>
 
-                            <div className="px-3 py-2 text-[10px] text-muted-foreground border-t border-border/20">
-                                <div className="flex items-center gap-1 mb-1">
-                                    <div className="w-3 h-0.5 bg-foreground" />
-                                    <span>Actual</span>
+                            <div className="px-3 py-2 text-[10px] text-muted-foreground border-t border-border/20 space-y-1">
+                                <div className="flex items-center gap-1">
+                                    <div className="w-3 h-3 rounded-full border-2 border-foreground" />
+                                    <span>Verified (Agency)</span>
                                 </div>
                                 <div className="flex items-center gap-1">
-                                    <div className="w-3 h-0.5 border-t-2 border-dashed border-warning" />
-                                    <span>Predicted</span>
+                                    <div className="w-3 h-3 rounded-full border-2 border-dashed border-warning" />
+                                    <span>ML Prediction</span>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                    <div className="w-3 h-3 rounded-sm bg-gradient-to-r from-emerald-400/40 to-emerald-400/10" />
+                                    <span>Hue = News/Social</span>
                                 </div>
                             </div>
                         </motion.div>

@@ -1,8 +1,15 @@
-import { motion } from 'framer-motion';
-import { Sun, Moon, Mountain } from 'lucide-react';
-import { Button } from './ui/button';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Sun, Moon, Globe } from 'lucide-react';
 
-export type MapStyle = 'day' | 'night' | 'terrain';
+export type MapStyle = 'night' | 'day' | 'terrain';
+
+const styleOrder: MapStyle[] = ['night', 'day', 'terrain'];
+
+const styleConfig: Record<MapStyle, { label: string; icon: React.ComponentType<any>; next: string }> = {
+    night: { label: 'Dark', icon: Moon, next: 'Light' },
+    day: { label: 'Light', icon: Sun, next: 'Terrain' },
+    terrain: { label: 'Terrain', icon: Globe, next: 'Dark' },
+};
 
 interface MapStyleToggleProps {
     currentStyle: MapStyle;
@@ -10,34 +17,34 @@ interface MapStyleToggleProps {
 }
 
 const MapStyleToggle = ({ currentStyle, onStyleChange }: MapStyleToggleProps) => {
-    const styles: Array<{ value: MapStyle; label: string; icon: React.ComponentType<any> }> = [
-        { value: 'day', label: 'Day', icon: Sun },
-        { value: 'night', label: 'Night', icon: Moon },
-        { value: 'terrain', label: 'Terrain', icon: Mountain },
-    ];
+    const config = styleConfig[currentStyle];
+    const Icon = config.icon;
+
+    const handleClick = () => {
+        const idx = styleOrder.indexOf(currentStyle);
+        onStyleChange(styleOrder[(idx + 1) % styleOrder.length]);
+    };
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="absolute top-4 right-4 z-[800] flex gap-1 glass-panel p-1 rounded-lg shadow-lg backdrop-blur-xl bg-background/40 border border-border/30"
+        <button
+            onClick={handleClick}
+            title={`Switch to ${config.next} mode`}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-border/40 bg-background/60 hover:bg-accent/30 transition-all cursor-pointer"
         >
-            {styles.map(({ value, label, icon: Icon }) => {
-                const isActive = currentStyle === value;
-                return (
-                    <Button
-                        key={value}
-                        variant={isActive ? 'default' : 'ghost'}
-                        size="sm"
-                        onClick={() => onStyleChange(value)}
-                        className={`h-8 px-3 transition-all ${isActive ? 'shadow-md' : 'hover:bg-accent/50'}`}
-                    >
-                        <Icon className="h-4 w-4 mr-1.5" />
-                        <span className="text-xs font-medium">{label}</span>
-                    </Button>
-                );
-            })}
-        </motion.div>
+            <AnimatePresence mode="wait">
+                <motion.span
+                    key={currentStyle}
+                    initial={{ rotate: -90, opacity: 0, scale: 0.6 }}
+                    animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                    exit={{ rotate: 90, opacity: 0, scale: 0.6 }}
+                    transition={{ duration: 0.15 }}
+                    className="flex items-center gap-1.5"
+                >
+                    <Icon className="w-4 h-4" />
+                    <span className="text-xs font-medium hidden sm:inline">{config.label}</span>
+                </motion.span>
+            </AnimatePresence>
+        </button>
     );
 };
 

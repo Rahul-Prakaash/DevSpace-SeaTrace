@@ -10,26 +10,10 @@ interface NotificationCardProps {
 }
 
 const platformColors: Record<SocialNotification['platform'], { bg: string; border: string; icon: string }> = {
-    twitter: {
-        bg: 'rgba(29, 155, 240, 0.15)',
-        border: '#1DA1F2',
-        icon: '#1DA1F2'
-    },
-    facebook: {
-        bg: 'rgba(24, 119, 242, 0.15)',
-        border: '#1877F2',
-        icon: '#1877F2'
-    },
-    instagram: {
-        bg: 'rgba(225, 48, 108, 0.15)',
-        border: '#E1306C',
-        icon: '#E1306C'
-    },
-    telegram: {
-        bg: 'rgba(0, 136, 204, 0.15)',
-        border: '#0088CC',
-        icon: '#0088CC'
-    },
+    twitter: { bg: 'rgba(29, 155, 240, 0.15)', border: '#1DA1F2', icon: '#1DA1F2' },
+    facebook: { bg: 'rgba(24, 119, 242, 0.15)', border: '#1877F2', icon: '#1877F2' },
+    instagram: { bg: 'rgba(225, 48, 108, 0.15)', border: '#E1306C', icon: '#E1306C' },
+    reddit: { bg: 'rgba(255, 69, 0, 0.15)', border: '#FF4500', icon: '#FF4500' },
 };
 
 const NotificationCard = ({ notification, onClose, index }: NotificationCardProps) => {
@@ -105,7 +89,7 @@ const NotificationCard = ({ notification, onClose, index }: NotificationCardProp
                 <div className="flex items-center justify-between text-[10px] text-muted-foreground">
                     {notification.location && (
                         <span className="flex items-center gap-1">
-                            📍 {notification.location}
+                            {notification.location}
                         </span>
                     )}
                     <span className="ml-auto">{timeAgo}</span>

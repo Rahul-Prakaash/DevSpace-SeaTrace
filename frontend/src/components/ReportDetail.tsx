@@ -5,7 +5,7 @@ import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
 import { Separator } from './ui/separator';
-import { formatDate, getSeverityColor } from '@/lib/utils';
+import { formatDate } from '@/lib/utils';
 
 interface ReportDetailProps {
     report: HazardReport;
