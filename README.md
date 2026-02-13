@@ -1,267 +1,96 @@
 # 🌊 SeaTrace: Collective Hazard Mapping for Safer Shores
 
-**Team PrismShift** | Devspace 2026
+**Team PrismShift** | DevSpace 2026
 
-SeaTrace is a sophisticated coastal safety platform that empowers communities through collective hazard mapping and predictive analytics. The project addresses the critical need for real-time, localized data on coastal threats like tsunamis, storm surges, and high-tide flooding.
+**SeaTrace** is a sophisticated coastal safety platform that empowers communities through collective hazard mapping and predictive analytics. The project addresses the critical need for real-time, localized data on coastal threats like tsunamis, storm surges, and high-tide flooding.
 
-![SeaTrace Dashboard](https://img.shields.io/badge/Status-Demo%20Ready-success)
-![License](https://img.shields.io/badge/License-MIT-blue)
+![SeaTrace Dashboard](https://img.shields.io/badge/Status-Live-success?style=for-the-badge)
+![Tech Stack](https://img.shields.io/badge/Stack-MERN%20%2B%20Python%20ML-blue?style=for-the-badge)
 
-## 🎯 Features
+## 🎯 Key Features
 
-### Core Capabilities
-- **Interactive Coastal Map**: Leaflet-powered dark-theme map centered on Indian coastal regions
-- **Real-Time Hazard Visualization**: Dynamic markers and heatmaps showing threat intensity
-- **ML-Powered Predictions**: Risk forecasting based on NOAA historical data patterns
-- **Crowdsourced Reporting**: Community-driven hazard submissions with verification system
-- **Alert System**: Automated warnings for high-risk zones
-- **Statistics Dashboard**: Live metrics on active hazards, reports, and response times
+### 🌍 Real-Time Hazard Intelligence
+-   **Interactive Map**: Leaflet-powered dark-theme interface with dynamic heatmaps and hazard markers.
+-   **Live Data Integration**: Visualizes data from verified agency sources (NOAA, INCOIS) and crowd-sourced reports.
+-   **Smart Filtering**: Filter hazards by type (Cyclone, Tsunami, Erosion) and severity.
+-   **Temporal Timeline**: Rewind/forward time to see past events or future ML predictions.
 
-### Technical Highlights
-- **Responsive Design**: Mobile-first approach with glassmorphism effects
-- **Dark Ocean Theme**: Custom Tailwind theme with cyan/teal accents
-- **Animated UI**: Framer Motion for smooth transitions and micro-interactions
-- **Real-Time Updates**: React Query for efficient data fetching and caching
+### 🤖 AI Assessment & Social Signals
+-   **ML-Powered Predictions**: Python/Scikit-Learn models predicting coastal risks based on historical NOAA data.
+-   **Social Sentinel**: Analyzes social media signals (tweets/posts) to detect emerging threats before official confirmation.
+-   **News Verification**: Automatically cross-references news reports with official data for "Verified" badges.
 
-## 🏗️ Architecture
+### 👤 User-Centric Experience
+-   **Location Profiling**: Users can set their coastal region (e.g., "Marina Beach, Chennai") to auto-focus the map and filter relevant alerts.
+-   **Resilient Auth**: Secure JWT authentication with session persistence and graceful error handling.
+-   **Community Reporting**: Submit hazard reports with geolocation and upvote/verify community submissions.
 
-```
-SeaTrace/
-├── frontend/          # React + Vite + TypeScript + Tailwind
-├── backend/           # Node.js + Express + MongoDB
-└── ml/                # Python + Flask (ML predictions)
-```
+## 🏗️ Technical Architecture
 
-### Tech Stack
+### Frontend (React + Vite)
+-   **Framework**: React 18 with TypeScript
+-   **Styling**: Tailwind CSS with custom "Ocean Dark" theme & Glassmorphism
+-   **State Management**: Zustand (Auth/Timeline/Maps)
+-   **Maps**: Leaflet.js with custom dark tiles & Heatmap layers
+-   **UI Components**: Radix UI primitives for accessible, robust interactives
 
-**Frontend**
-- React 18 with TypeScript
-- Vite for fast development
-- Tailwind CSS + shadcn/ui components
-- Leaflet.js for interactive maps
-- Framer Motion for animations
-- React Query for state management
+### Backend (Node.js + Express)
+-   **API**: RESTful architecture with resilient error handling
+-   **Database**: MongoDB (Mongoose ODM) with geospatial indexing
+-   **Auth**: Custom JWT-based secure authentication
+-   **Services**: Dedicated routes for Hazards, Social Intelligence, and User Profiles
 
-**Backend**
-- Node.js + Express
-- MongoDB with Mongoose ODM
-- RESTful API architecture
-- CORS enabled for development
-
-**ML Component**
-- Python 3.x
-- Flask API server
-- NumPy for computations
-- Simulated NOAA-based predictions
+### ML Service (Python + Flask)
+-   **Model**: Random Forest Classifier trained on Indian Coastal datasets
+-   **API**: Flask server exposing `/predict` endpoints
+-   **Data Engineering**: Pipelines for processing NOAA historical data
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js v20+ and npm
-- Python 3.10+
-- MongoDB running locally or connection URI
-- Git
+-   Node.js v18+
+-   Python 3.10+
+-   MongoDB (Local or Atlas)
 
 ### Installation
 
-1. **Clone the repository**
-```bash
-git clone <repository-url>
-cd Devspace
-```
+1.  **Clone the Repository**
+    ```bash
+    git clone https://github.com/Rahul-Prakaash/DevSpace-SeaTrace.git
+    cd DevSpace-SeaTrace
+    ```
 
-2. **Set up Frontend**
-```bash
-cd frontend
-npm install
-cp .env.example .env
-```
+2.  **Frontend Setup**
+    ```bash
+    cd frontend
+    npm install
+    # Create .env based on .env.example
+    npm run dev
+    ```
 
-3. **Set up Backend**
-```bash
-cd ../backend
-npm install
-cp .env.example .env
-# Edit .env and add your MongoDB URI
-```
+3.  **Backend Setup**
+    ```bash
+    cd backend
+    npm install
+    # Configure your MONGODB_URI in .env
+    npm run dev
+    ```
 
-4. **Set up ML Service**
-```bash
-cd ../ml
-python -m venv venv
-# Windows:
-venv\\Scripts\\activate
-# Mac/Linux:
-source venv/bin/activate
-
-pip install -r requirements.txt
-cp .env.example .env
-```
-
-### Running the Application
-
-**Terminal 1: Start MongoDB** (if running locally)
-```bash
-mongod
-```
-
-**Terminal 2: Start Backend**
-```bash
-cd backend
-npm run dev
-```
-
-**Terminal 3: Seed Database** (first time only)
-```bash
-cd backend
-npm run seed
-```
-
-**Terminal 4: Start ML API**
-```bash
-cd ml
-# Activate venv first
-python src/api.py
-```
-
-**Terminal 5: Start Frontend**
-```bash
-cd frontend
-npm run dev
-```
-
-**Access the application:** http://localhost:5173
-
-## 📊 NOAA Data Integration
-
-SeaTrace leverages open-source datasets from NOAA (National Oceanic and Atmospheric Administration):
-
-1. **Global Historical Tsunami Database** - 2,400+ events from 2100 BC to present
-2. **SLOSH Storm Surge Models** - Hurricane inundation predictions
-3. **Coastal Ocean Reanalysis (CORA)** - 40+ years of water level data
-4. **High Tide Flooding Records** - Coastal flooding patterns
-
-> **Note**: The ML component simulates predictions based on NOAA patterns for this demo. In production, it would process actual datasets.
+4.  **ML Service Setup**
+    ```bash
+    cd ml
+    python -m venv venv
+    source venv/bin/activate  # or venv\Scripts\activate on Windows
+    pip install -r requirements.txt
+    python src/api.py
+    ```
 
 ## 🎨 Design Philosophy
-
-- **Dark Ocean Theme**: Deep blues and teals reflecting the marine environment
-- **Glassmorphism**: Frosted glass effects for modern aesthetics
-- **Micro-Animations**: Subtle movements (wave-float, hazard-pulse) for engagement
-- **Responsive Layout**: Collapsible sidebar, mobile-optimized controls
-
-**Design Refinements from Reference:**
-- ✅ Fixed title gradient rendering
-- ✅ Perfect stats ribbon centering with `left-1/2 -translate-x-1/2`
-- ✅ Consistent glass panel effects
-- ✅ Smooth animated transitions
-
-## 📡 API Endpoints
-
-### Backend (Port 3000)
-- `GET /api/hazards` - List all hazards (filterable by type, severity)
-- `GET /api/hazards/:id` - Get specific hazard details
-- `POST /api/reports` - Submit crowdsourced report
-- `PATCH /api/reports/:id/verify` - Verify a report (admin)
-- `PATCH /api/reports/:id/upvote` - Upvote a report
-- `GET /api/alerts` - Get active coastal alerts
-- `GET /api/predictions` - Get ML predictions
-- `POST /api/predictions/generate` - Trigger new prediction
-
-### ML Service (Port 5000)
-- `GET /health` - Health check
-- `POST /predict` - Generate single location prediction
-- `POST /predict/bulk` - Bulk predictions for multiple locations
-
-## 🧪 Testing & Verification
-
-### Frontend Build Test
-```bash
-cd frontend
-npm run build
-```
-
-### Backend Health Check
-```bash
-curl http://localhost:3000/health
-```
-
-### ML API Health Check
-```bash
-curl http://localhost:5000/health
-```
-
-### Test Prediction
-```bash
-curl -X POST http://localhost:5000/predict \
-  -H "Content-Type: application/json" \
-  -d '{"lat": 13.0827, "lng": 80.2707, "hazardType": "storm_surge"}'
-```
-
-## 🗺️ Demo Locations
-
-The demo is pre-loaded with data from Tamil Nadu coast:
-- **Chennai (Marina Bay)**: 13.0827, 80.2707
-- **Besant Nagar**: 13.0002, 80.2718
-- **Kovalam**: 12.7897, 80.2547
-- **Mahabalipuram**: 12.6169, 80.1991
-- **Pondicherry**: 11.9416, 79.8083
-
-## 🛠️ Development
-
-### Project Structure
-
-```
-frontend/src/
-├── components/       # React components
-│   ├── ui/          # shadcn/ui components
-│   ├── Header.tsx
-│   ├── MapView.tsx
-│   ├── StatsBar.tsx
-│   ├── AlertBanner.tsx
-│   ├── HazardSidebar.tsx
-│   └── ReportDetail.tsx
-├── lib/             # Utilities and data
-│   ├── api.ts       # API client
-│   ├── mockData.ts  # Demo data
-│   └── utils.ts     # Helper functions
-└── pages/
-    └── Index.tsx    # Main dashboard
-
-backend/src/
-├── config/          # Database config
-├── models/          # Mongoose schemas
-├── routes/          # API routes
-└── scripts/         # Seed scripts
-
-ml/src/
-├── predict.py       # ML predictor class
-└── api.py           # Flask server
-```
-
-### Adding New Hazard Types
-
-1. Update `mockData.ts` with new type in `HazardReport` interface
-2. Add icon mapping in `HazardSidebar.tsx`
-3. Update Mongoose schema in `backend/src/models/Hazard.ts`
-4. Add risk scoring logic in `ml/src/predict.py`
-
-## 🤝 Contributing
-
-This is a Devspace project, but suggestions are welcome!
-
-## 📄 License
-
-MIT License - Team PrismShift
-
-## 🙏 Acknowledgments
-
-- NOAA for open-source coastal hazard datasets
-- OpenStreetMap contributors
-- CARTO for map tiles
-- Leaflet.js community
-- shadcn/ui for component library
+SeaTrace features a **"Deep Ocean"** aesthetic designed for clarity in low-light conditions:
+-   **Glassmorphism**: Translucent floating panels for map controls and overlays.
+-   **Fluid Animations**: Wave-like micro-interactions and smooth map fly-to transitions.
+-   **Hierarchical Layout**: Critical alerts take precedence; historical data fades into the background.
 
 ---
 
-**Built with ❤️ by Team PrismShift for Devspace 2026**
+**Built by Team PrismShift**
